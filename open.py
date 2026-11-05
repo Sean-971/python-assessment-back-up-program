@@ -7,35 +7,6 @@
     """
 import shutil, os, sys, datetime
 from datetime import datetime
-"""
-smtp = {"sender": "seanythelad@gmail.com",    # elasticemail.com verified sender
-        "recipient": "30029394@students.sunitafe.edu.au", # elasticemail.com verified recipient
-        "server": "smtp.elasticemail.com",      # elasticemail.com SMTP server
-        "port": 2525,                           # elasticemail.com SMTP port
-        "user": "seanythelad@gmail.com",      # elasticemail.com user
-        "password": "AAAABBBBXXXXYYYYZZZZ"}     # elasticemail.com password
-"""
-# append all error messages to email and send
-def sendEmail (message, dateTimeStamp ):
-    """
-    Send an email message to the specified recipient.
-    Parameters:
-    message (string): message to send.
-    dateTimeStamp (string): Date and time when program was run.
-    """
-    # create email message
-    email = 'To: ' + smtp["recipient"] + '\n' + 'From: ' + smtp["sender"] + '\n' + 'Subject: Backup Error n n' + message + '\n'
-    # connect to email server and send email
-    try:
-        smtp_server = smtplib.SMTP(smtp["server"], smtp["port"])
-        smtp_server.ehlo()
-        smtp_server.starttls()
-        smtp_server.ehlo()
-        smtp_server.login (smtp["user"], smtp["password"])
-        smtp_server.sendmail (smtp["sender"], smtp["recipient"], email)
-        smtp_server.close()
-    except Exception as e:
-        print("ERROR: Send email failed: " + str(e), file= sys.stderr)
 def create_backup(source_path, destination_dir):
     """
      Contains the code to mark a file and directory used to copy and make a backup of a file.
@@ -56,7 +27,7 @@ def create_backup(source_path, destination_dir):
 
         shutil.copytree(source_path, target_path)
         print(f"Successfully backed up to: ",{target_path})
-        message = f'Completed backup of {base_name}'
+        
     elif os.path.isfile(source_path):
         file_name, file_ext =os.path.splitext(base_name)  
         backup_name = f"{file_name}_{timestamp}{file_ext}"  
@@ -73,14 +44,13 @@ def main():
     target_file = sys.argv[1]
     print('Searching for: '+ target_file)
     Search_word = target_file
-    with open("config.txt", "r") as file:
+    with open("backupcfg.py", "r") as file:
         if Search_word in file.read():
             print(target_file + ' included within the Config File. Proceeding to backup.')
             Destination = "./backups"
             create_backup(target_file, Destination)            
         else:
             print('Error: '+ target_file + ' not included within the Config File. Ensure command line has full file name. Make sure to Type the full file name including its extension (.txt, .py)')
-            message = f'failed to create a backup of {base_name} is not in the config file or the name was inputted incorrectly'
-        sendEmail(message, dateTimeStamp)
+                 
 if __name__ == "__main__":
     main()
