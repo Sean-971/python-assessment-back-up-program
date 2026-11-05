@@ -9,11 +9,11 @@ This Python code demonstrates the following features:
 
 import smtplib
 
-smtp = {"sender": "davidcgcleary@gmail.com",    # elasticemail.com verified sender
-        "recipient": "dcleary@sunitafe.edu.au", # elasticemail.com verified recipient
+smtp = {"sender": "seanythelad@gmail.com",    # elasticemail.com verified sender
+        "recipient": "30029394@students.sunitafe.edu.au", # elasticemail.com verified recipient
         "server": "smtp.elasticemail.com",      # elasticemail.com SMTP server
         "port": 2525,                           # elasticemail.com SMTP port
-        "user": "davidcgcleary@gmail.com",      # elasticemail.com user
+        "user": "seanythelad@gmail.com",      # elasticemail.com user
         "password": "AAAABBBBXXXXYYYYZZZZ"}     # elasticemail.com password
 
 # append all error messages to email and send
