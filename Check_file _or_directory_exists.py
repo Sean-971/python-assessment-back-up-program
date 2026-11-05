@@ -11,8 +11,8 @@ def main():
     
     """
     try:
-        fileExists = "/home/ec2-user/environment/ictprg302-2023S1/cli.py"
-        fileNotExists = "/home/ec2-user/environment/ictprg302-2023S1/xxx.py"
+        fileExists = "CLI.py"
+        fileNotExists = "xxx.py"
         
         if not os.path.exists(fileExists):
             print("ERROR: file " + fileExists + " does not exist.")
