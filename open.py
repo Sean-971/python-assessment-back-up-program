@@ -5,8 +5,12 @@
     * opening, writing and closing a text file.
     
     """
-import shutil, os, sys, datetime
+import shutil, os, sys, datetime, logging
 from datetime import datetime
+from zoneinfo import ZoneInfo
+
+
+
 def create_backup(source_path, destination_dir):
     """
      Contains the code to mark a file and directory used to copy and make a backup of a file.
@@ -14,10 +18,10 @@ def create_backup(source_path, destination_dir):
     """
     #used to ensure the source path is correct
     if not os.path.exists(source_path):
-        print(f"Error: Source path",{source_path}," does not exist.")
+        print(f"Error: ",{source_path}," does not exist.")
         return
     os.makedirs(destination_dir, exist_ok=True)
-    now = datetime.now()
+    now = datetime.now(ZoneInfo("Australia/Melbourne"))
     timestamp = now
     base_name = os.path.basename(os.path.normpath(source_path))
 
@@ -35,8 +39,17 @@ def create_backup(source_path, destination_dir):
 
         shutil.copy2(source_path, target_path)
         print(f'Successfully backed up file to: ',{target_path})
+        logging.info("File backup completed successfully.")
+        print("Check backup.log for details.")
 
 def main():
+    logging.basicConfig(
+    filename='backup.log',
+    filemode='a',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+        )
     if len(sys.argv) < 2:
         print("Error: Please provide a filename.")
         print("Usage: python script.py <filename>")
@@ -51,6 +64,6 @@ def main():
             create_backup(target_file, Destination)            
         else:
             print('Error: '+ target_file + ' not included within the Config File. Ensure command line has full file name. Make sure to Type the full file name including its extension (.txt, .py)')
-                 
+            logging.error("Backup failed, "+ target_file+ " not in the config file. Ensure command is written correctly and that the job is valid")     
 if __name__ == "__main__":
     main()

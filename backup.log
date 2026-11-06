@@ -1,0 +1,5 @@
+2026-11-06 01:45:46,090 - INFO - This message is appended to the log file.
+2026-11-06 01:45:46,090 - ERROR - An error occurred during execution.
+2026-11-06 01:51:03 - ERROR - Backup failed, job2 not in the config file. Ensure command is written correctly and that the job is valid
+2026-11-06 01:53:43 - ERROR - Backup failed, job2 not in the config file. Ensure command is written correctly and that the job is valid
+2026-11-06 01:54:11 - INFO - File backup completed successfully.
